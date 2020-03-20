@@ -1,0 +1,28 @@
+Nota: mucho pedo trabajar con python 3
+mejor usar otros entornos virtuales
+
+pip3 install virtualenv
+
+//para saber en donde se encuentra instalado
+which pip3
+which virtualenv
+
+//crear entorno virtual
+virtualenv nombre
+
+//correr entorno virtual
+source nombre/bin/activate
+
+//salir del entorno virtual
+deactivate
+
+// ver las librerias instaladas en python
+pip3 freeze
+
+//instalar una libreria 
+pip3 install nombre
+
+//instalar desde una lista en txt
+pip3 install -r archivo.txt
+
+
