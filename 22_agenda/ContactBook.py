@@ -1,36 +1,26 @@
-from contact import Contact
+from Contact import Contact
+import csv
 
 class ContactBook:
     def __init__(self):
         self._contacts= []
 
-    def mostar(self):
-        self._contacts[0]._nombre = 'b'
-        print(self._contacts[0]._nombre)
-
-
     def add(self,name,phone,email):
         print("Contacto agregado")
         contact = Contact(name,phone,email)
         self._contacts.append(contact)
+        self._save()
         print(f'contacto agregado: nombre:{name} phone:{phone} email:{email}')
 
     def show_all(self):
         for contact in self._contacts:
             self._print_contact(contact)
-            
-
-    def _print_contact(self,contact):
-        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
-        print(f'nombre: {contact._nombre}')
-        print(f'telefono: {contact._telefono}')
-        print(f'email: {contact._email}')
-        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
 
     def delete(self,nombre):
         for idx,contact in enumerate(self._contacts):
             if contact._nombre.lower() == nombre.lower():
                 del self._contacts[idx]
+                self._save()
                 break
 
     def search(self, nombre):
@@ -44,11 +34,6 @@ class ContactBook:
                 break
         else:
             self._notFound(nombre)
-    
-    def _notFound(self,nombre):
-        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
-        print(f'no se encuentra registrado {nombre}')
-        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
 
     def update_menu(self,nombre):
         self.search(nombre)
@@ -88,3 +73,25 @@ class ContactBook:
                 break
         else:
             self._notFound(nombre)
+
+    def _save(self):
+
+        with open("22_agenda/contactos.csv",'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(('nombre', 'telefono', 'email'))
+
+            for contact in self._contacts:
+                writer.writerow((contact._nombre,contact._telefono,contact._email))
+        
+
+    def _notFound(self,nombre):
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+        print(f'no se encuentra registrado {nombre}')
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+
+    def _print_contact(self,contact):
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+        print(f'nombre: {contact._nombre}')
+        print(f'telefono: {contact._telefono}')
+        print(f'email: {contact._email}')
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")

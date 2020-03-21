@@ -1,9 +1,19 @@
 from ContactBook import ContactBook
+import csv
 
 def run():    
 
     contact_book = ContactBook()
     
+    with open("22_agenda/contactos.csv",'r') as f:
+        reader = csv.reader(f)
+        for idx,row in enumerate(reader):
+            if idx == 0:
+                continue
+            else:
+                contact_book.add(row[0],row[1],row[2])
+
+
     while True:
         comando = input('''
         Que desea hacer
